@@ -88,7 +88,7 @@ b:brightest_highlight				*b:brightest_highlight*
 	|g:brightest#highlight| よりも優先して使用されます。
 
 
-g:brightest#highlight_in_corsorline	*g:brightest#highlight_in_corsorline*
+g:brightest#highlight_in_cursorline	*g:brightest#highlight_in_cursorline*
 	|g:brightest#highlight| と同等の設定ですが、カーソル行の単語のみに反映
 	されるハイライトの設定です。
 	'cursorline' と併用して使用する場合はこの設定を使用してください。
@@ -97,9 +97,9 @@ g:brightest#highlight_in_corsorline	*g:brightest#highlight_in_corsorline*
 	を設定すると 'cursorline' がオンの場合にハイライトの背景が 'cursorline'
 	と同じになります。
 
-b:brightest_highlight_in_corsorline	*b:brightest_highlight_in_corsorline*
-	|g:brightest#highlight_in_corsorline| のバッファローカル版です。
-	|g:brightest#highlight_in_corsorline| よりも優先して使用されます。
+b:brightest_highlight_in_cursorline	*b:brightest_highlight_in_cursorline*
+	|g:brightest#highlight_in_cursorline| のバッファローカル版です。
+	|g:brightest#highlight_in_cursorline| よりも優先して使用されます。
 
 
 ==============================================================================
@@ -109,7 +109,7 @@ BrightestUnderline				*BrightestUnderline*
 	アンダーラインでハイライトします。
 
 BrightestCursorLineBg				*BrightestCursorLineBg*
-	このハイライトグループを |g:brightest#highlight_in_corsorline|
+	このハイライトグループを |g:brightest#highlight_in_cursorline|
 	に設定すると 'cursorline' がオンの場合にハイライトの背景が
 	'cursorline' と同じになります。
 	'cursorline' をオンにしている場合にはこれを利用すると見やすくなりま
