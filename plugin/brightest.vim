@@ -15,6 +15,7 @@ function! s:init_hl()
 	highlight BrightestDefaultCursorWord gui=underline guifg=NONE
 	highlight BrightestUnderline term=underline cterm=underline gui=underline
 endfunction
+call s:init_hl()
 
 
 command! -bar BrightestEnable  let g:brightest_enable = 1 | call brightest#highlight()
