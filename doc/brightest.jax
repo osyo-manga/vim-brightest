@@ -49,6 +49,8 @@ g:brightest_pattern				*g:brightest_pattern*
 	任意の範囲をハイライトしたい場合はこの変数を変更してください。
 	また、空の文字列が設定されている場合は |<cword>|
 	の値がハイライトする単語として使用されます。
+	デフォルトでは空の文字列が設定されているため |<cword>| の単語がハイラ
+	イトされます。
 Default: >
 	let brightest_pattern = ""
 <
