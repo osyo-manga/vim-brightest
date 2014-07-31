@@ -10,6 +10,7 @@ let s:Search = s:V.import("Coaster.Search")
 
 
 let g:brightest#enable_filetypes = get(g:, "brightest#enable_filetypes", {})
+let g:brightest#enable_highlight_cursorline = get(g:, "brightest#enable_highlight_cursorline", 0)
 " let g:brightest#highlight_format  = get(g:, "brightest#highlight_format", "\\<%s\\>")
 
 
@@ -51,7 +52,7 @@ function! s:single_word(pattern, highlight, cursorline)
 
 	let pattern = s:Prelude.escape_pattern(word)
 
-	if &cursorline
+	if &cursorline && g:brightest#enable_highlight_cursorline
 		call brightest#define_cursorline_highlight_group(a:highlight.group)
 	endif
 	call s:highlight("cursor_word", pattern, a:highlight)
@@ -159,6 +160,7 @@ endfunction
 
 
 function! brightest#define_cursorline_highlight_group(group)
+	highlight BrightestCursorLine NONE
 	execute "highlight BrightestCursorLine " . brightest#parse_cursorline_highlight_group(a:group)
 endfunction
 
