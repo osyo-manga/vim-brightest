@@ -114,6 +114,9 @@ b:brightest_highlight_in_cursorline	*b:brightest_highlight_in_cursorline*
 BrightestUnderline				*BrightestUnderline*
 	アンダーラインでハイライトします。
 
+BrightestUndercurl				*BrightestUndercurl*
+	波線でハイライトします。
+
 BrightestCursorLineBg				*BrightestCursorLineBg*
 	このハイライトグループを |g:brightest#highlight_in_cursorline|
 	に設定すると 'cursorline' がオンの場合にハイライトの背景が
