@@ -114,7 +114,7 @@ BrightestUnderline				*BrightestUnderline*
   空の文字列が設定されているとハイライトはされません。
 
 - "priority"					*brightest-highlight-priority*
-  matchadd()| の {priority} に設定される数値です。
+  |matchadd()| の {priority} に設定される数値です。
 
 - "format"					*brightest-highlight-format*
   単語をハイライトする際のフォーマットを設定します。
