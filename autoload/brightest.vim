@@ -13,6 +13,19 @@ let g:brightest#enable_filetypes = get(g:, "brightest#enable_filetypes", {})
 " let g:brightest#enable_highlight_cursorline = get(g:, "brightest#enable_highlight_cursorline", 0)
 " let g:brightest#highlight_format  = get(g:, "brightest#highlight_format", "\\<%s\\>")
 
+let g:brightest#ignore_syntax_list = get(g:, "brightest#ignore_syntax_list", [])
+
+
+function! s:is_ignore_syntax_in_cursor()
+	let list = get(b:, "brightest_ignore_syntax_list", g:brightest#ignore_syntax_list)
+	if empty(list)
+		return 0
+	endif
+
+	let name = synIDattr(synIDtrans(synID(line("."), col("."), 1)), "name")
+	return index(list, name) != -1
+endfunction
+
 
 function! s:is_enable_in_current()
 	let default = get(g:brightest#enable_filetypes, "_", 1)
@@ -86,7 +99,7 @@ endfunction
 function! s:highlighting(pattern, highlight, cursorline, ...)
 	call brightest#hl_clear()
 	
-	if !s:is_enable_in_current()
+	if !s:is_enable_in_current() || s:is_ignore_syntax_in_cursor()
 		return
 	endif
 
