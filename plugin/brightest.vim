@@ -14,7 +14,7 @@ let g:brightest_enable = get(g:, "brightest_enable", 1)
 function! s:init_hl()
 	highlight BrightestDefaultCursorWord gui=underline guifg=NONE
 	highlight BrightestUnderline term=underline cterm=underline gui=underline
-	highlight BrightestCursorLine NONE
+	highlight BrightestCursorLineBg NONE
 endfunction
 call s:init_hl()
 
