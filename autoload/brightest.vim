@@ -77,9 +77,35 @@ endfunction
 " 	call s:Highlight.highlight("current_word", a:current_group, current, -1)
 " endfunction
 
+let g:brightest#pattern = get(g:, "brightest#pattern",  '')
 
-function! brightest#highlight(pattern, highlight, cursorline, ...)
+
+let s:highlight_default = {
+\	"group" : "WarningMsg",
+\	"priority" : -1,
+\	"format" : '\<%s\>',
+\}
+let g:brightest#highlight = get(g:, "brightest#highlight", {})
+function! s:default()
+	return get(b:, "brightest_highlight", extend(s:highlight_default, g:brightest#highlight))
+endfunction
+
+
+let s:highlight_in_cursorline_default = {
+\	"group" : "",
+\	"priority" : -1,
+\	"format" : '\<%s\>',
+\}
+let g:brightest#highlight_in_cursorline = get(g:, "brightest#highlight_in_cursorline", {})
+function! s:highlight_in_cursorline()
+	return get(b:, "brightest_highlight_in_cursorline", extend(s:highlight_in_cursorline_default, g:brightest#highlight_in_cursorline))
+endfunction
+
+
+
+function! s:highlighting(pattern, highlight, cursorline, ...)
 	call brightest#hl_clear()
+	
 	if !s:is_enable_in_current()
 		return
 	endif
@@ -87,8 +113,18 @@ function! brightest#highlight(pattern, highlight, cursorline, ...)
 	if get(a:, 1, "") == ""
 		return s:single_word(a:pattern, a:highlight, a:cursorline)
 	else
-		return s:with_current(a:1, a:group, a:pattern)
+" 		return s:with_current(a:1, a:group, a:pattern)
 	endif
+endfunction
+
+
+
+function! brightest#highlight()
+	call s:highlighting(
+\		get(b:, "brightest_pattern", g:brightest#pattern),
+\		s:default(),
+\		s:highlight_in_cursorline(),
+\	)
 endfunction
 
 

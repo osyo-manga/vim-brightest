@@ -16,13 +16,14 @@ BrightestEnable
 BrightestDisable
 
 " ハイライトするグループ名を設定します
-let g:brightest_highlight = {
-\   "group" : "Search"
+" アンダーラインで表示する
+let g:brightest#highlight = {
+\   "group" : "BrightestUnderline"
 \}
 
 " ハイライトする単語のパターンを設定します
 " デフォルト（空の文字列の場合）は <cword> が使用されます
-let g:brightest_pattern = '\k\+'
+let g:brightest#pattern = '\k\+'
 
 
 " filetype=cpp を無効にする
