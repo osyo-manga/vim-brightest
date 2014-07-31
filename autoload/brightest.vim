@@ -14,6 +14,7 @@ let g:brightest#enable_filetypes = get(g:, "brightest#enable_filetypes", {})
 " let g:brightest#highlight_format  = get(g:, "brightest#highlight_format", "\\<%s\\>")
 
 let g:brightest#ignore_syntax_list = get(g:, "brightest#ignore_syntax_list", [])
+let g:brightest#ignore_word_pattern = get(g:, "brightest#ignore_word_pattern", "")
 
 
 function! s:is_ignore_syntax_in_cursor()
@@ -60,6 +61,11 @@ function! s:single_word(pattern, highlight, cursorline)
 	" マルチバイト文字はハイライトしない
 	if word == ""
 \	|| !empty(filter(split(word, '\zs'), "strlen(v:val) > 1"))
+		return
+	endif
+
+	let ignore_word_pattern = get(b:, "brightest_ignore_word_pattern", g:brightest#ignore_word_pattern)
+	if !empty(ignore_word_pattern) && word =~ ignore_word_pattern
 		return
 	endif
 
