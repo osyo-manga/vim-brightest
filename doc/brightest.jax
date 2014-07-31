@@ -44,7 +44,7 @@ Example: >
 	\}
 <
 
-g:brightest_pattern				*g:brightest_pattern*
+g:brightest#pattern				*g:brightest#pattern*
 	ハイライトするカーソル位置の単語のパターンを設定します。
 	任意の範囲をハイライトしたい場合はこの変数を変更してください。
 	また、空の文字列が設定されている場合は |<cword>|
@@ -52,23 +52,23 @@ g:brightest_pattern				*g:brightest_pattern*
 	デフォルトでは空の文字列が設定されているため |<cword>| の単語がハイラ
 	イトされます。
 Default: >
-	let brightest_pattern = ""
+	let g:brightest#pattern = ""
 <
 Example: >
 	" 英数字 + _ の範囲をハイライトする単語として扱う
-	let brightest_pattern = '\w\+'
+	let g:brightest#pattern = '\w\+'
 <
 
 b:brightest_pattern				*b:brightest_pattern*
-	|g:brightest_pattern| のバッファローカル版です。
-	|g:brightest_pattern| よりも優先して使用されます。
+	|g:brightest#pattern| のバッファローカル版です。
+	|g:brightest#pattern| よりも優先して使用されます。
 
 
-g:brightest_highlight				*g:brightest_highlight*
+g:brightest#highlight				*g:brightest#highlight*
 	カーソル下の単語をハイライトする |brightest-highlight| の設定です。
 	この設定でバッファ内にあるカーソル下の単語をハイライトします。
 Default: >
-	let g:brightest_highlight = {
+	let g:brightest#highlight = {
 \		"group" : "WarningMsg",
 \		"priority" : -1,
 \		"format" : '\<%s\>',
@@ -77,25 +77,25 @@ Default: >
 Example: >
 	" 単語をアンダーラインでハイライトして、
 	" matchadd() の優先順位を 1000 にする
-	let g:brightest_highlight = {
+	let g:brightest#highlight = {
 \		"group"    : "BrightestUnderline",
 \		"priority" : 1000
 \	}
 <
 
 b:brightest_highlight				*b:brightest_highlight*
-	|g:brightest_highlight| のバッファローカル版です。
-	|g:brightest_highlight| よりも優先して使用されます。
+	|g:brightest#highlight| のバッファローカル版です。
+	|g:brightest#highlight| よりも優先して使用されます。
 
 
-g:brightest_highlight_in_corsur		*g:brightest_highlight_in_cursor*
-	|g:brightest_highlight| と同等の設定ですが、カーソル行の単語のみに反映
+g:brightest#highlight_in_corsur		*g:brightest#highlight_in_cursor*
+	|g:brightest#highlight| と同等の設定ですが、カーソル行の単語のみに反映
 	されるハイライトの設定です。
 	'cursorline' と併用して使用する場合はこの設定を使用してください。
 
 b:brightest_highlight_in_corsur		*b:brightest_highlight_in_corsur*
-	|g:brightest_highlight_in_corsur| のバッファローカル版です。
-	|g:brightest_highlight_in_corsur| よりも優先して使用されます。
+	|g:brightest#highlight_in_corsur| のバッファローカル版です。
+	|g:brightest#highlight_in_corsur| よりも優先して使用されます。
 
 
 ==============================================================================
@@ -124,7 +124,7 @@ BrightestUnderline				*BrightestUnderline*
 Example: >
 	" 単語をアンダーラインでハイライトして、
 	" matchadd() の優先順位を 1000 にする
-	let g:brightest_highlight = {
+	let g:brightest#highlight = {
 \		"group"    : "BrightestUnderline",
 \		"priority" : 1000
 \	}
