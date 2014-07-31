@@ -96,6 +96,12 @@ g:brightest#highlight_in_cursorline	*g:brightest#highlight_in_cursorline*
 	NOTE:これの |brightest-highlight-group| に |BrightestCursorLineBg|
 	を設定すると 'cursorline' がオンの場合にハイライトの背景が 'cursorline'
 	と同じになります。
+Example: >
+	" カーソル行のハイライトを 'cursorline' のハイライトの背景と同じにする
+	let g:brightest#highlight_in_cursorline = {
+\		"group" : "BrightestCursorLineBg"
+\	}
+<
 
 b:brightest_highlight_in_cursorline	*b:brightest_highlight_in_cursorline*
 	|g:brightest#highlight_in_cursorline| のバッファローカル版です。
