@@ -22,7 +22,7 @@ command! -bar BrightestDisable let g:brightest_enable = 0 | call brightest#hl_cl
 
 augroup brightest
 	autocmd!
-	autocmd CursorMoved * call brightest#highlight()
+	autocmd CursorMoved * call brightest#highlighting()
 	autocmd BufLeave,WinLeave,InsertEnter * call brightest#hl_clear()
 	autocmd ColorScheme * call s:init_hl()
 augroup END
