@@ -1,0 +1,133 @@
+brightest.txt	カーソル下の単語を常にハイライトするプラグイン
+
+
+==============================================================================
+概要						*brightest-introduction*
+
+*brightest* はカーソル下の単語をカーソルが移動する度にハイライトするプラグインで
+す。
+
+
+==============================================================================
+インターフェース				*brightest-interface*
+------------------------------------------------------------------------------
+コマンド					*brightest-commands*
+
+:BrightestEnable				*:BrightestEnable*
+	ハイライトを有効にします。
+	この状態が既定値になります。
+
+:BrightestDisable				*:BrightestDisable*
+	ハイライトを無効にします。
+
+
+==============================================================================
+設定						*brightest-setting*
+
+------------------------------------------------------------------------------
+変数						*brightest-variables*
+
+g:brightest#enable_filetypes			*g:brightest#enable_filetypes*
+	有効にする 'filetype' を設定します。
+	設定されていない 'filetype' は "_" の値を使用します。
+	デフォルトではすべての 'filetype' が有効です。
+Example: >
+	" filetype=cpp を無効にする
+	let g:brightest#enable_filetypes = {
+	\	"cpp" : 0
+	\}
+
+	" filetype=vim のみを有効にする
+	let g:brightest#enable_filetypes = {
+	\	"_"   : 0
+	\	"vim" : 1
+	\}
+<
+
+g:brightest_pattern				*g:brightest_pattern*
+	ハイライトするカーソル位置の単語のパターンを設定します。
+	任意の範囲をハイライトしたい場合はこの変数を変更してください。
+	また、空の文字列が設定されている場合は |<cword>|
+	の値がハイライトする単語として使用されます。
+Default: >
+	let brightest_pattern = ""
+<
+Example: >
+	" 英数字 + _ の範囲をハイライトする単語として扱う
+	let brightest_pattern = '\w\+'
+<
+
+b:brightest_pattern				*b:brightest_pattern*
+	|g:brightest_pattern| のバッファローカル版です。
+	|g:brightest_pattern| よりも優先して使用されます。
+
+
+g:brightest_highlight				*g:brightest_highlight*
+	カーソル下の単語をハイライトする |brightest-highlight| の設定です。
+	この設定でバッファ内にあるカーソル下の単語をハイライトします。
+Default: >
+	let g:brightest_highlight = {
+\		"group" : "WarningMsg",
+\		"priority" : -1,
+\		"format" : '\<%s\>',
+\	}
+<
+Example: >
+	" 単語をアンダーラインでハイライトして、
+	" matchadd() の優先順位を 1000 にする
+	let g:brightest_highlight = {
+\		"group"    : "BrightestUnderline",
+\		"priority" : 1000
+\	}
+<
+
+b:brightest_highlight				*b:brightest_highlight*
+	|g:brightest_highlight| のバッファローカル版です。
+	|g:brightest_highlight| よりも優先して使用されます。
+
+
+g:brightest_highlight_in_corsur		*g:brightest_highlight_in_cursor*
+	|g:brightest_highlight| と同等の設定ですが、カーソル行の単語のみに反映
+	されるハイライトの設定です。
+	'cursorline' と併用して使用する場合はこの設定を使用してください。
+
+b:brightest_highlight_in_corsur		*b:brightest_highlight_in_corsur*
+	|g:brightest_highlight_in_corsur| のバッファローカル版です。
+	|g:brightest_highlight_in_corsur| よりも優先して使用されます。
+
+
+==============================================================================
+ハイライトグループ				*brightest-highlight_group*
+
+BrightestUnderline				*BrightestUnderline*
+	アンダーラインでハイライトします。
+
+
+==============================================================================
+ハイライト					*brightest-highlight*
+
+ハイライトの設定を行う辞書です。
+ハイライトの設定には以下のキーの値が設定できます。
+
+- "group"					*brightest-highlight-group*
+  ハイライトグループを設定します。
+  空の文字列が設定されているとハイライトはされません。
+
+- "priority"					*brightest-highlight-priority*
+  matchadd()| の {priority} に設定される数値です。
+
+- "format"					*brightest-highlight-format*
+  単語をハイライトする際のフォーマットを設定します。
+
+Example: >
+	" 単語をアンダーラインでハイライトして、
+	" matchadd() の優先順位を 1000 にする
+	let g:brightest_highlight = {
+\		"group"    : "BrightestUnderline",
+\		"priority" : 1000
+\	}
+<
+
+
+==============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
