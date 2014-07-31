@@ -50,6 +50,10 @@ function! s:single_word(pattern, highlight, cursorline)
 	endif
 
 	let pattern = s:Prelude.escape_pattern(word)
+
+	if &cursorline
+		call brightest#define_cursorline_highlight_group(a:highlight.group)
+	endif
 	call s:highlight("cursor_word", pattern, a:highlight)
 	call s:highlight("cursor_line", '\%' . line('.') . 'l' . pattern, a:cursorline)
 endfunction
@@ -128,5 +132,34 @@ function! brightest#highlighting()
 endfunction
 
 
-let &cpo = s:save_cpo
-unlet s:save_cpo
+function! brightest#parse_cursorline_highlight_group(group)
+	redir => hl
+		silent execute "highlight" a:group
+	redir END
+	let hl = matchstr(hl, '.*xxx\zs.*')
+	let guibg   = synIDattr(synIDtrans(hlID("CursorLine")), "bg", "gui")
+	if guibg != "" && guibg != -1
+		if hl =~ 'guibg=\S\+'
+			let hl = substitute(hl, 'guibg=\S\+', 'guibg=' . guibg, "")
+		else
+			let hl .= ' guibg=' . guibg
+		endif
+	endif
+
+	let ctermbg = synIDattr(synIDtrans(hlID("CursorLine")), "bg", "cterm")
+	if ctermbg != "" && ctermbg != -1
+		if hl =~ 'ctermbg=\S\+'
+			let hl = substitute(hl, 'ctermbg=\S\+', 'ctermbg=' . ctermbg, "")
+		else
+			let hl .= ' ctermbg=' . ctermbg
+		endif
+	endif
+	return hl
+endfunction
+
+
+function! brightest#define_cursorline_highlight_group(group)
+	execute "highlight BrightestCursorLine " . brightest#parse_cursorline_highlight_group(a:group)
+endfunction
+
+
