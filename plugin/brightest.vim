@@ -19,7 +19,7 @@ endfunction
 call s:init_hl()
 
 
-command! -bar BrightestEnable  let g:brightest_enable = 1 | call brightest#highlight()
+command! -bar BrightestEnable  let g:brightest_enable = 1 | call brightest#highlighting()
 command! -bar BrightestDisable let g:brightest_enable = 0 | call brightest#hl_clear()
 
 augroup brightest
