@@ -93,6 +93,10 @@ g:brightest#highlight_in_corsorline	*g:brightest#highlight_in_corsorline*
 	されるハイライトの設定です。
 	'cursorline' と併用して使用する場合はこの設定を使用してください。
 
+	NOTE:これの |brightest-highlight-group| に |BrightestCursorLineBg|
+	を設定すると 'cursorline' がオンの場合にハイライトの背景が 'cursorline'
+	と同じになります。
+
 b:brightest_highlight_in_corsorline	*b:brightest_highlight_in_corsorline*
 	|g:brightest#highlight_in_corsorline| のバッファローカル版です。
 	|g:brightest#highlight_in_corsorline| よりも優先して使用されます。
@@ -103,6 +107,13 @@ b:brightest_highlight_in_corsorline	*b:brightest_highlight_in_corsorline*
 
 BrightestUnderline				*BrightestUnderline*
 	アンダーラインでハイライトします。
+
+BrightestCursorLineBg				*BrightestCursorLineBg*
+	このハイライトグループを |g:brightest#highlight_in_corsorline|
+	に設定すると 'cursorline' がオンの場合にハイライトの背景が
+	'cursorline' と同じになります。
+	'cursorline' をオンにしている場合にはこれを利用すると見やすくなりま
+	す。
 
 
 ==============================================================================
