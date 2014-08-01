@@ -1,4 +1,4 @@
-brightest.txt	カーソル下の単語を常にハイライトするプラグイン
+*brightest.txt*	カーソル下の単語を常にハイライトするプラグイン
 
 
 ==============================================================================
@@ -75,11 +75,9 @@ Default: >
 	\}
 <
 Example: >
-	" 単語をアンダーラインでハイライトして、
-	" matchadd() の優先順位を 1000 にする
+	" 単語をアンダーラインでハイライトする
 	let g:brightest#highlight = {
 	\	"group"    : "BrightestUnderline",
-	\	"priority" : 1000
 	\}
 <
 
@@ -149,6 +147,46 @@ Example: >
 	\	"priority" : 1000
 	\}
 <
+==============================================================================
+FAQ						*brightest-faq*
+
+Q. ハイライトを変更したい
+
+A. |g:brightest#highlight| の "group" に変更したいハイライトグループ名を設定
+します。
+
+>
+	" ハイライトを "Search" にする
+	let g:brightest#highlight = {
+	\	"group"    : "Search",
+	\}
+<
+
+Q. アンダーライン、もしくは波線でハイライトしたい
+
+A.  |g:brightest#highlight| の "group" に |BrightestUnderline|、もしくは
+|BrightestUndercurl|を設定します。
+
+>
+	" ハイライトをアンダーラインにする
+	let g:brightest#highlight = {
+	\	"group"    : "BrightestUnderline",
+	\}
+<
+
+Q. ハイライトの背景を 'cursorline' と同じに死体
+
+A.  g:brightest#highlight_in_cursorline| の "group" に 
+|BrightestCursorLineBg| を設定することでカーソル行のハイライトの背景が
+'cursorline' と同じになります。
+>
+	" カーソル行のハイライトの背景を 'cursorline' と同じにする
+	let g:brightest#highlight_in_cursorline = {
+	\	"group"    : "BrightestCursorLineBg",
+	\}
+<
+
+
 
 
 ==============================================================================
