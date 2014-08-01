@@ -106,6 +106,35 @@ b:brightest_highlight_in_cursorline	*b:brightest_highlight_in_cursorline*
 	|g:brightest#highlight_in_cursorline| よりも優先して使用されます。
 
 
+g:brightest#ignore_syntax_list		*g:brightest#ignore_syntax_list*
+	ハイライトを行わないシンタックス名のリストです。
+	ここで設定したシンタックス上にカーソルがある場合はハイライトしません。
+Default: >
+	let g:brightest#ignore_syntax_list = []
+<
+Example: >
+	" カーソル下のシンタックスが "Statement" の場合はハイライトしない
+	" カーソル下のシンタックスは
+	" :echo synIDattr(synIDtrans(synID(line("."), col("."), 1)), "name")
+	" で調べることができる
+	let g:brightest#ignore_syntax_list = [ "Statement" ]
+<
+
+b:brightest_ignore_syntax_list		*b:brightest_ignore_syntax_list*
+	|g:brightest#ignore_syntax_list| のバッファローカル版です。
+	|g:brightest#ignore_syntax_list| よりも優先して使用されます。
+
+
+g:brightest#ignore_word_pattern		*g:brightest#ignore_word_pattern*
+	ハイライトしない単語のパターンを設定します。
+Default: >
+	let g:brightest#ignore_word_pattern = ''
+<
+b:brightest_ignore_word_pattern		*b:brightest_ignore_word_pattern*
+	g:brightest#ignore_word_pattern のバッファローカル版です。
+	g:brightest#ignore_word_pattern よりも優先して使用されます。
+
+
 ==============================================================================
 ハイライトグループ				*brightest-highlight_group*
 
