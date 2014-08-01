@@ -69,18 +69,18 @@ g:brightest#highlight				*g:brightest#highlight*
 	この設定でバッファ内にあるカーソル下の単語をハイライトします。
 Default: >
 	let g:brightest#highlight = {
-\		"group" : "WarningMsg",
-\		"priority" : -1,
-\		"format" : '\<%s\>',
-\	}
+	\	"group" : "WarningMsg",
+	\	"priority" : -1,
+	\	"format" : '\<%s\>',
+	\}
 <
 Example: >
 	" 単語をアンダーラインでハイライトして、
 	" matchadd() の優先順位を 1000 にする
 	let g:brightest#highlight = {
-\		"group"    : "BrightestUnderline",
-\		"priority" : 1000
-\	}
+	\	"group"    : "BrightestUnderline",
+	\	"priority" : 1000
+	\}
 <
 
 b:brightest_highlight				*b:brightest_highlight*
@@ -99,8 +99,8 @@ g:brightest#highlight_in_cursorline	*g:brightest#highlight_in_cursorline*
 Example: >
 	" カーソル行のハイライトを 'cursorline' のハイライトの背景と同じにする
 	let g:brightest#highlight_in_cursorline = {
-\		"group" : "BrightestCursorLineBg"
-\	}
+	\	"group" : "BrightestCursorLineBg"
+	\}
 <
 
 b:brightest_highlight_in_cursorline	*b:brightest_highlight_in_cursorline*
@@ -145,9 +145,9 @@ Example: >
 	" 単語をアンダーラインでハイライトして、
 	" matchadd() の優先順位を 1000 にする
 	let g:brightest#highlight = {
-\		"group"    : "BrightestUnderline",
-\		"priority" : 1000
-\	}
+	\	"group"    : "BrightestUnderline",
+	\	"priority" : 1000
+	\}
 <
 
 
