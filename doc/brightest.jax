@@ -94,6 +94,9 @@ g:brightest#highlight_in_cursorline	*g:brightest#highlight_in_cursorline*
 	NOTE:これの |brightest-highlight-group| に |BrightestCursorLineBg|
 	を設定すると 'cursorline' がオンの場合にハイライトの背景が 'cursorline'
 	と同じになります。
+	また、この時に 'cursorline' を無効にすると
+	|g:brightest#highlight_in_cursorline| のハイライトは反映されなくなりま
+	す。
 Example: >
 	" カーソル行のハイライトを 'cursorline' のハイライトの背景と同じにする
 	let g:brightest#highlight_in_cursorline = {
@@ -109,6 +112,7 @@ b:brightest_highlight_in_cursorline	*b:brightest_highlight_in_cursorline*
 g:brightest#ignore_syntax_list		*g:brightest#ignore_syntax_list*
 	ハイライトを行わないシンタックス名のリストです。
 	ここで設定したシンタックス上にカーソルがある場合はハイライトしません。
+	NOTE:|g:brightest#pattern|を設定していない場合、カーソル上以外の単語がハイライトされるのでこの機能が正しく動作しない可能性があります。
 Default: >
 	let g:brightest#ignore_syntax_list = []
 <

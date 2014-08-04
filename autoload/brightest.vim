@@ -2,7 +2,8 @@ scriptencoding utf-8
 let s:save_cpo = &cpo
 set cpo&vim
 
-let s:V = vital#of("brightest")
+let s:V = vital#of("vital")
+" let s:V = vital#of("brightest")
 let s:Prelude = s:V.import("Prelude")
 let s:Buffer = s:V.import("Coaster.Buffer")
 let s:Highlight = s:V.import("Coaster.Highlight")
@@ -75,7 +76,11 @@ function! s:single_word(pattern, highlight, cursorline)
 		call brightest#define_cursorline_highlight_group(a:highlight.group)
 	endif
 	call s:highlight("cursor_word", pattern, a:highlight)
-	call s:highlight("cursor_line", '\%' . line('.') . 'l' . pattern, a:cursorline)
+
+	" nocursorline の場合、BrightestCursorLineBg でハイライトしない
+	if !(a:cursorline.group ==# "BrightestCursorLineBg" && &cursorline == 0)
+		call s:highlight("cursor_line", '\%' . line('.') . 'l' . pattern, a:cursorline)
+	endif
 endfunction
 
 
