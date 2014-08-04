@@ -20,8 +20,12 @@ endfunction
 call s:init_hl()
 
 
-command! -bar BrightestEnable  let g:brightest_enable = 1 | call brightest#highlighting()
-command! -bar BrightestDisable let g:brightest_enable = 0 | call brightest#hl_clear()
+command! -bar BrightestHighlight call brightest#highlighting()
+command! -bar BrightestClear     call brightest#hl_clear()
+command! -bar BrightestEnable  let g:brightest_enable = 1 | BrightestHighlight
+command! -bar BrightestDisable let g:brightest_enable = 0 | BrightestClear
+
+
 
 augroup brightest
 	autocmd!

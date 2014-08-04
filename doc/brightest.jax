@@ -14,12 +14,18 @@
 コマンド					*brightest-commands*
 
 :BrightestEnable				*:BrightestEnable*
-	ハイライトを有効にします。
+	カーソル移動による自動ハイライトを有効にします。
 	この状態が既定値になります。
 
 :BrightestDisable				*:BrightestDisable*
-	ハイライトを無効にします。
+	カーソル移動による自動ハイライトを無効にします。
 
+:BrightestHighlight				*:BrightestHighlight*
+	ハイライトを行います。
+	|:BrightestDisable| で無効になっている場合はハイライトされません
+
+:BrightestClear					*:BrightestClear*
+	ハイライトを削除します。
 
 ==============================================================================
 設定						*brightest-setting*
