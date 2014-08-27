@@ -213,7 +213,7 @@ A.  |g:brightest#highlight| の "group" に |BrightestUnderline|、もしくは
 	\}
 <
 
-Q. ハイライトの背景を 'cursorline' と同じに死体
+Q. ハイライトの背景を 'cursorline' と同じにしたい
 
 A.  g:brightest#highlight_in_cursorline| の "group" に 
 |BrightestCursorLineBg| を設定することでカーソル行のハイライトの背景が
