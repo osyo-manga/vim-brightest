@@ -161,6 +161,7 @@ function! brightest#parse_cursorline_highlight_group(group)
 	redir => hl
 		silent execute "highlight" a:group
 	redir END
+	let hl = substitute(hl, '\n', '', 'g')
 	let hl = matchstr(hl, '.*xxx\zs.*')
 	let guibg   = synIDattr(synIDtrans(hlID("CursorLine")), "bg", "gui")
 	if guibg != "" && guibg != -1
