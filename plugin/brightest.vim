@@ -24,12 +24,19 @@ command! -bar BrightestHighlight call brightest#highlighting()
 command! -bar BrightestClear     call brightest#hl_clear()
 command! -bar BrightestEnable  let g:brightest_enable = 1 | BrightestHighlight
 command! -bar BrightestDisable let g:brightest_enable = 0 | BrightestClear
+command! -bar BrightestUnlock  let b:brightest_enable = 1 | BrightestHighlight
+command! -bar BrightestLock    let b:brightest_enable = 0 | BrightestClear
 
 
+function! s:highlight()
+	if g:brightest_enable && get(b:, "brightest_enable", 1)
+		call brightest#highlighting()
+	endif
+endfunction
 
 augroup brightest
 	autocmd!
-	autocmd CursorMoved * call brightest#highlighting()
+	autocmd CursorMoved * call s:highlight()
 	autocmd BufLeave,WinLeave,InsertEnter * call brightest#hl_clear()
 	autocmd ColorScheme * call s:init_hl()
 augroup END

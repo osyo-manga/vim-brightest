@@ -27,6 +27,12 @@
 :BrightestClear					*:BrightestClear*
 	ハイライトを削除します。
 
+:BrightestLock					*:BrightestLock*
+	現在でのバッファで brightest を無効にします。
+
+:BrightestUnlock				*:BrightestUnlock*
+	|:BrightestLock| で無効にしたのを戻します。
+
 ==============================================================================
 設定						*brightest-setting*
 

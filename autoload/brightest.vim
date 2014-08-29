@@ -41,7 +41,7 @@ endfunction
 
 function! s:is_enable_in_current(context)
 	let default = get(g:brightest#enable_filetypes, "_", 1)
-	return g:brightest_enable && get(g:brightest#enable_filetypes, a:context.filetype, default)
+	return get(g:brightest#enable_filetypes, a:context.filetype, default)
 endfunction
 
 
