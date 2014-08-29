@@ -18,20 +18,35 @@ let g:brightest#ignore_syntax_list = get(g:, "brightest#ignore_syntax_list", [])
 let g:brightest#ignore_word_pattern = get(g:, "brightest#ignore_word_pattern", "")
 
 
-function! s:is_ignore_syntax_in_cursor()
+
+function! s:context()
+	return {
+\		"filetype" : &filetype,
+\		"line" : line("."),
+\		"col"  : col("."),
+\		"syntax_name" : synIDattr(synIDtrans(synID(line("."), col("."), 1)), "name")
+\	}
+endfunction
+
+
+function! s:is_ignore_syntax_in_cursor(context)
 	let list = get(b:, "brightest_ignore_syntax_list", g:brightest#ignore_syntax_list)
 	if empty(list)
 		return 0
 	endif
 
-	let name = synIDattr(synIDtrans(synID(line("."), col("."), 1)), "name")
-	return index(list, name) != -1
+	return index(list, a:context.syntax_name) != -1
 endfunction
 
 
-function! s:is_enable_in_current()
+function! s:is_enable_in_current(context)
 	let default = get(g:brightest#enable_filetypes, "_", 1)
-	return g:brightest_enable && get(g:brightest#enable_filetypes, &filetype, default)
+	return g:brightest_enable && get(g:brightest#enable_filetypes, a:context.filetype, default)
+endfunction
+
+
+function! s:is_ignore(context)
+	return !s:is_enable_in_current(a:context) || s:is_ignore_syntax_in_cursor(a:context)
 endfunction
 
 
@@ -107,10 +122,12 @@ endfunction
 " endfunction
 
 
+
 function! s:highlighting(pattern, highlight, cursorline, ...)
 	call brightest#hl_clear()
 	
-	if !s:is_enable_in_current() || s:is_ignore_syntax_in_cursor()
+	let context = s:context()
+	if s:is_ignore(context)
 		return
 	endif
 
