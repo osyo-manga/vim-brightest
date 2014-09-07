@@ -144,6 +144,14 @@ b:brightest_ignore_word_pattern		*b:brightest_ignore_word_pattern*
 	g:brightest#ignore_word_pattern のバッファローカル版です。
 	g:brightest#ignore_word_pattern よりも優先して使用されます。
 
+g:brightest_on_cursor_hold		*g:brightest_on_cursor_hold*
+	もし値が0以外である場合、
+	カーソルが動いた後(|CursorMoved|)にハイライトするのではなく、
+	カーソルが動いて'updatetime'ミリ秒経った後(|CursorHold|)に、
+	ハイライトします。
+Default: >
+	let g:brightest_on_cursor_hold = 0
+<
 
 ==============================================================================
 ハイライトグループ				*brightest-highlight_group*
