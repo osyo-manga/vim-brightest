@@ -9,6 +9,7 @@ set cpo&vim
 
 
 let g:brightest_enable = get(g:, "brightest_enable", 1)
+let g:brightest_on_cursor_hold = get(g:, "brightest_on_cursor_hold", 0)
 
 
 function! s:init_hl()
@@ -29,7 +30,9 @@ command! -bar BrightestDisable let g:brightest_enable = 0 | BrightestClear
 
 augroup brightest
 	autocmd!
-	autocmd CursorMoved * call brightest#highlighting()
+	execute 'autocmd'
+\		(g:brightest_on_cursor_hold ? 'CursorHold' : 'CursorMoved')
+\		'* call brightest#highlighting()'
 	autocmd BufLeave,WinLeave,InsertEnter * call brightest#hl_clear()
 	autocmd ColorScheme * call s:init_hl()
 augroup END
