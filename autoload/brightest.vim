@@ -31,6 +31,7 @@ endfunction
 
 function! s:is_ignore_syntax_in_cursor(context)
 	let list = get(b:, "brightest_ignore_syntax_list", g:brightest#ignore_syntax_list)
+
 	if empty(list)
 		return 0
 	endif
@@ -174,10 +175,15 @@ function! brightest#highlighting()
 endfunction
 
 
+let s:parse_cursorline_highlight_group_memo = {}
 function! brightest#parse_cursorline_highlight_group(group)
 	redir => hl
 		silent execute "highlight" a:group
 	redir END
+	let key = hl
+	if has_key(s:parse_cursorline_highlight_group_memo, key)
+		return s:parse_cursorline_highlight_group_memo[key]
+	endif
 	let hl = substitute(hl, '\n', '', 'g')
 	let hl = matchstr(hl, '.*xxx\zs.*')
 	let guibg   = synIDattr(synIDtrans(hlID("CursorLine")), "bg", "gui")
@@ -197,6 +203,7 @@ function! brightest#parse_cursorline_highlight_group(group)
 			let hl .= ' ctermbg=' . ctermbg
 		endif
 	endif
+	let s:parse_cursorline_highlight_group_memo[key] = hl
 	return hl
 endfunction
 
