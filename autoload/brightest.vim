@@ -214,6 +214,27 @@ function! brightest#define_cursorline_highlight_group(group)
 endfunction
 
 
+function! s:is_enable()
+	return g:brightest_enable && get(b:, "brightest_enable", 1)
+endfunction
+
+let g:brightest#enable_on_CursorHold = get(g:, "brightest#enable_cursorhold", 0)
+
+function! brightest#on_CursorHold()
+	if s:is_enable() && g:brightest#enable_on_CursorHold
+		call brightest#highlighting()
+	endif
+endfunction
+
+function! brightest#on_CursorMoved()
+	if g:brightest#enable_on_CursorHold
+		call brightest#hl_clear()
+	endif
+	if s:is_enable() && !g:brightest#enable_on_CursorHold
+		call brightest#highlighting()
+	endif
+endfunction
+
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

@@ -36,7 +36,9 @@ endfunction
 
 augroup brightest
 	autocmd!
-	autocmd CursorMoved * call s:highlight()
+" 	autocmd CursorMoved * call s:highlight()
+	autocmd CursorMoved * call brightest#on_CursorMoved()
+	autocmd CursorHold  * call brightest#on_CursorHold()
 	autocmd BufLeave,WinLeave,InsertEnter * call brightest#hl_clear()
 	autocmd ColorScheme * call s:init_hl()
 augroup END

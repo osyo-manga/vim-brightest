@@ -150,6 +150,13 @@ b:brightest_ignore_word_pattern		*b:brightest_ignore_word_pattern*
 	g:brightest#ignore_word_pattern のバッファローカル版です。
 	g:brightest#ignore_word_pattern よりも優先して使用されます。
 
+g:brightest#enable_on_CursorHold	*g:brightest#enable_on_CursorHold*
+	1 が設定されている場合 |CursorMoved| ではなくて |CursorHold|
+	時にハイライトを行うようになります。
+	カーソル移動が遅く感じる場合はこの変数に 1 を設定してください。
+Default: >
+	let g:brightest#enable_on_CursorHold = 0
+<
 
 ==============================================================================
 ハイライトグループ				*brightest-highlight_group*
@@ -221,7 +228,7 @@ A.  |g:brightest#highlight| の "group" に |BrightestUnderline|、もしくは
 
 Q. ハイライトの背景を 'cursorline' と同じにしたい
 
-A.  g:brightest#highlight_in_cursorline| の "group" に 
+A. g:brightest#highlight_in_cursorline| の "group" に 
 |BrightestCursorLineBg| を設定することでカーソル行のハイライトの背景が
 'cursorline' と同じになります。
 >
@@ -231,7 +238,12 @@ A.  g:brightest#highlight_in_cursorline| の "group" に
 	\}
 <
 
+Q. カーソル移動が重いので CursorHold 時にハイライトしたい
 
+A. g:brightest#enable_on_CursorHold に 1 を設定します。
+>
+	let g:brightest#enable_on_CursorHold = 1
+<
 
 
 ==============================================================================
