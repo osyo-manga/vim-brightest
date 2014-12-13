@@ -1,5 +1,5 @@
 scriptencoding utf-8
-if exists('g:loaded_brightest')
+if exists('g:loaded_brightest') || v:version < 702
   finish
 endif
 let g:loaded_brightest = 1
