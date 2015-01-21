@@ -15,6 +15,7 @@ function! s:init_hl()
 	highlight BrightestDefaultCursorWord gui=underline guifg=NONE
 	highlight BrightestUnderline term=underline cterm=underline gui=underline
 	highlight BrightestUndercurl term=undercurl cterm=undercurl gui=undercurl
+	highlight BrightestReverse term=reverse cterm=reverse gui=reverse
 	highlight BrightestCursorLineBg NONE
 endfunction
 call s:init_hl()
