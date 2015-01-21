@@ -167,6 +167,9 @@ BrightestUnderline				*BrightestUnderline*
 BrightestUndercurl				*BrightestUndercurl*
 	波線でハイライトします。
 
+BrightestReverse				*BrightestReverse*
+	反転色でハイライトします。
+
 BrightestCursorLineBg				*BrightestCursorLineBg*
 	このハイライトグループを |g:brightest#highlight_in_cursorline|
 	に設定すると 'cursorline' がオンの場合にハイライトの背景が
