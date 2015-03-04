@@ -215,22 +215,26 @@ endfunction
 
 
 function! s:is_enable()
-	return g:brightest_enable && get(b:, "brightest_enable", 1)
+	return get(g:, "brightest_enable", 1) && get(b:, "brightest_enable", 1)
 endfunction
 
-let g:brightest#enable_on_CursorHold = get(g:, "brightest#enable_cursorhold", 0)
+let g:brightest#enable_on_CursorHold = get(g:, "brightest#enable_on_CursorHold", 0)
+
+function! s:is_enable_on_cursorhold()
+	return g:brightest#enable_on_CursorHold && get(b:, "brightest_enable_on_CursorHold", 1)
+endfunction
 
 function! brightest#on_CursorHold()
-	if s:is_enable() && g:brightest#enable_on_CursorHold
+	if s:is_enable() && s:is_enable_on_cursorhold()
 		call brightest#highlighting()
 	endif
 endfunction
 
 function! brightest#on_CursorMoved()
-	if g:brightest#enable_on_CursorHold
+	if s:is_enable_on_cursorhold()
 		call brightest#hl_clear()
 	endif
-	if s:is_enable() && !g:brightest#enable_on_CursorHold
+	if s:is_enable() && !s:is_enable_on_cursorhold()
 		call brightest#highlighting()
 	endif
 endfunction
