@@ -33,6 +33,9 @@
 :BrightestUnlock				*:BrightestUnlock*
 	|:BrightestLock| で無効にしたのを戻します。
 
+BrightestToggle					*BrightestToggle*
+	|:BrightestEnable| と |:BrightestDisable| を切り替えます。
+
 ==============================================================================
 設定						*brightest-setting*
 

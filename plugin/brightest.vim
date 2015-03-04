@@ -27,6 +27,7 @@ command! -bar BrightestEnable  let g:brightest_enable = 1 | BrightestHighlight
 command! -bar BrightestDisable let g:brightest_enable = 0 | BrightestClear
 command! -bar BrightestUnlock  let b:brightest_enable = 1 | BrightestHighlight
 command! -bar BrightestLock    let b:brightest_enable = 0 | BrightestClear
+command! -bar BrightestToggle  if g:brightest_enable | BrightestDisable | else | BrightestEnable | endif
 
 
 function! s:highlight()
