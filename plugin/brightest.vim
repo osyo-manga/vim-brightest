@@ -4,6 +4,11 @@ if exists('g:loaded_brightest')
 endif
 let g:loaded_brightest = 1
 
+if v:version < 702
+	echohl ErrorMsg | echom "brightest.vim : Requirement Vim version 7.2 or above." | echohl NONE
+	finish
+endif
+
 let s:save_cpo = &cpo
 set cpo&vim
 
