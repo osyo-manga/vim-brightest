@@ -230,8 +230,9 @@ function! brightest#on_CursorHold()
 	endif
 endfunction
 
+let g:brightest#enable_clear_highlight_on_CursorMoved = get(g:, "brightest#enable_clear_highlight_on_CursorMoved", 1)
 function! brightest#on_CursorMoved()
-	if s:is_enable_on_cursorhold()
+	if s:is_enable_on_cursorhold() && g:brightest#enable_clear_highlight_on_CursorMoved
 		call brightest#hl_clear()
 	endif
 	if s:is_enable() && !s:is_enable_on_cursorhold()

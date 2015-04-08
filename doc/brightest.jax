@@ -161,6 +161,16 @@ Default: >
 	let g:brightest#enable_on_CursorHold = 0
 <
 
+			*g:brightest#enable_clear_highlight_on_CursorMoved*
+g:brightest#enable_clear_highlight_on_CursorMoved
+	1 が設定されている場合、|CursorMoved| 時にハイライトが消えるようになり
+	ます。
+	|CursorHold| 時にハイライトしている時にカーソルが移動してもハイライト
+	を残したい場合には 0 を設定してください。
+Default: >
+	let g:brightest#enable_clear_highlight_on_CursorMoved = 1
+<
+
 ==============================================================================
 ハイライトグループ				*brightest-highlight_group*
 
