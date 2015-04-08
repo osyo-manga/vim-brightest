@@ -151,7 +151,7 @@ let s:highlight_default = {
 \}
 let g:brightest#highlight = get(g:, "brightest#highlight", {})
 function! s:default()
-	return get(b:, "brightest_highlight", extend(s:highlight_default, g:brightest#highlight))
+	return get(b:, "brightest_highlight", extend(copy(s:highlight_default), g:brightest#highlight))
 endfunction
 
 
@@ -162,7 +162,7 @@ let s:highlight_in_cursorline_default = {
 \}
 let g:brightest#highlight_in_cursorline = get(g:, "brightest#highlight_in_cursorline", {})
 function! s:highlight_in_cursorline()
-	return get(b:, "brightest_highlight_in_cursorline", extend(s:highlight_in_cursorline_default, g:brightest#highlight_in_cursorline))
+	return get(b:, "brightest_highlight_in_cursorline", extend(copy(s:highlight_in_cursorline_default), g:brightest#highlight_in_cursorline))
 endfunction
 
 
