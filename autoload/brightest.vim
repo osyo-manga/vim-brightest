@@ -52,9 +52,10 @@ endfunction
 
 
 function! brightest#hl_clear()
-	call s:Highlight.clear("cursor_word")
-	call s:Highlight.clear("cursor_line")
-	call s:Highlight.clear("current_word")
+	call s:Highlight.clear_all()
+" 	call s:Highlight.clear("cursor_word")
+" 	call s:Highlight.clear("cursor_line")
+" 	call s:Highlight.clear("current_word")
 endfunction
 
 
@@ -91,10 +92,19 @@ function! s:single_word(pattern, highlight, cursorline)
 	if &cursorline && a:cursorline.group ==# "BrightestCursorLineBg"
 		call brightest#define_cursorline_highlight_group(a:highlight.group)
 	endif
-	call s:highlight("cursor_word", pattern, a:highlight)
 
 	" nocursorline の場合、BrightestCursorLineBg でハイライトしない
-	if !(a:cursorline.group ==# "BrightestCursorLineBg" && &cursorline == 0)
+	let is_highlight_cursorline
+\		= !(a:cursorline.group ==# "BrightestCursorLineBg" && &cursorline == 0 || a:cursorline.group == "")
+
+	if is_highlight_cursorline
+		call s:highlight("cursor_line_over", '\%<' . line('.') . 'l' . pattern, a:highlight)
+		call s:highlight("cursor_line_down", '\%>' . line('.') . 'l' . pattern, a:highlight)
+	else
+		call s:highlight("cursor_word", pattern, a:highlight)
+	endif
+
+	if is_highlight_cursorline
 		call s:highlight("cursor_line", '\%' . line('.') . 'l' . pattern, a:cursorline)
 	endif
 endfunction
