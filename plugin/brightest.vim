@@ -22,6 +22,7 @@ function! s:init_hl()
 	highlight BrightestUndercurl term=undercurl cterm=undercurl gui=undercurl
 	highlight BrightestReverse term=reverse cterm=reverse gui=reverse
 	highlight BrightestCursorLineBg NONE
+	highlight BrightestNONE NONE
 endfunction
 call s:init_hl()
 
