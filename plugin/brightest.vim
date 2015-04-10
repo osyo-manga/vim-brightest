@@ -42,13 +42,29 @@ function! s:highlight()
 	endif
 endfunction
 
+
 augroup brightest
 	autocmd!
 " 	autocmd CursorMoved * call s:highlight()
 	autocmd CursorMoved * call brightest#on_CursorMoved()
 	autocmd CursorHold  * call brightest#on_CursorHold()
-	autocmd BufLeave,WinLeave,InsertEnter * call brightest#hl_clear()
+	autocmd BufLeave,WinLeave * call brightest#hl_clear()
 	autocmd ColorScheme * call s:init_hl()
+
+	autocmd CursorMovedI *
+\		if g:brightest#enable_insert_mode
+
+
+\|			call brightest#on_CursorMoved()
+\|		endif
+	autocmd CursorHoldI *
+\		if g:brightest#enable_insert_mode
+\|			call brightest#on_CursorHold()
+\|		endif
+	autocmd InsertEnter *
+\		if g:brightest#enable_insert_mode == 0
+\|			call brightest#hl_clear()
+\|		endif
 augroup END
 
 

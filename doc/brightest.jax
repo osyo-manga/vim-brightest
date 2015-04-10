@@ -171,6 +171,13 @@ Default: >
 	let g:brightest#enable_clear_highlight_on_CursorMoved = 1
 <
 
+g:brightest#enable_insert_mode		*g:brightest#enable_insert_mode*
+	0 以外が設定されている場合に |Insert-mode| でも単語がハイライトされる
+	ようになります。
+Default: >
+	let g:brightest#enable_insert_mode = 0
+<
+
 ==============================================================================
 ハイライトグループ				*brightest-highlight_group*
 

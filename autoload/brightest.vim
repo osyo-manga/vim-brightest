@@ -224,6 +224,9 @@ function! brightest#define_cursorline_highlight_group(group)
 endfunction
 
 
+let g:brightest#enable_insert_mode = get(g:, "brightest#enable_insert_mode", 0)
+
+
 function! s:is_enable()
 	return get(g:, "brightest_enable", 1) && get(b:, "brightest_enable", 1)
 endfunction
@@ -240,6 +243,7 @@ function! brightest#on_CursorHold()
 	endif
 endfunction
 
+
 let g:brightest#enable_clear_highlight_on_CursorMoved = get(g:, "brightest#enable_clear_highlight_on_CursorMoved", 1)
 function! brightest#on_CursorMoved()
 	if s:is_enable_on_cursorhold() && g:brightest#enable_clear_highlight_on_CursorMoved
@@ -251,5 +255,3 @@ function! brightest#on_CursorMoved()
 endfunction
 
 
-let &cpo = s:save_cpo
-unlet s:save_cpo
