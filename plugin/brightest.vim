@@ -53,8 +53,6 @@ augroup brightest
 
 	autocmd CursorMovedI *
 \		if g:brightest#enable_insert_mode
-
-
 \|			call brightest#on_CursorMoved()
 \|		endif
 	autocmd CursorHoldI *
