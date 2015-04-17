@@ -177,6 +177,17 @@ g:brightest#enable_insert_mode		*g:brightest#enable_insert_mode*
 Default: >
 	let g:brightest#enable_insert_mode = 0
 <
+				*g:brightest#enable_highlight_all_window*
+g:brightest#enable_highlight_all_window
+	0 以外が設定されている場合に表示されているすべてのウィンドウをハイライ
+	トします。
+Default: >
+	let g:brightest#enable_highlight_all_window = 0
+<
+	NOTE:この設定を有効にする場合は処理が重くなります
+	気になる場合は |g:brightest#enable_on_CursorHold| と組み合わせて
+	使用してください
+
 
 ==============================================================================
 ハイライトグループ				*brightest-highlight_group*

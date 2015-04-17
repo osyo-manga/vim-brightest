@@ -6,8 +6,8 @@ set cpo&vim
 let s:V = vital#of("brightest")
 let s:Prelude = s:V.import("Prelude")
 let s:Buffer = s:V.import("Coaster.Buffer")
-let s:Highlight = s:V.import("Coaster.Highlight")
 let s:Search = s:V.import("Coaster.Search")
+let s:Highlight = s:V.import("Coaster.Highlight")
 
 
 let g:brightest#enable_filetypes = get(g:, "brightest#enable_filetypes", {})
@@ -51,20 +51,41 @@ function! s:is_ignore(context)
 endfunction
 
 
-function! brightest#hl_clear()
-	call s:Highlight.clear_all()
-" 	call s:Highlight.clear("cursor_word")
-" 	call s:Highlight.clear("cursor_line")
-" 	call s:Highlight.clear("current_word")
+let g:brightest#enable_highlight_all_window = get(g:, "brightest#enable_highlight_all_window", 0)
+function! s:highlight_on()
+	if g:brightest#enable_highlight_all_window
+		call s:Highlight.as_windo().enable_all()
+	else
+		call s:Highlight.enable_all()
+	endif
 endfunction
 
+
+function! s:highlight_off()
+	if g:brightest#enable_highlight_all_window
+		call s:Highlight.as_windo().disable_all()
+	else
+		call s:Highlight.disable_all()
+	endif
+endfunction
+
+
+let s:old_enable_window_all = g:brightest#enable_highlight_all_window
+function! brightest#hl_clear()
+	if g:brightest#enable_highlight_all_window
+\	|| s:old_enable_window_all
+		call s:Highlight.as_windo().disable_all()
+	endif
+	call s:Highlight.clear_all()
+	let s:old_enable_window_all = g:brightest#enable_highlight_all_window
+endfunction
 
 function! s:highlight(name, pattern, hi)
 	if empty(a:hi) || empty(a:pattern) || a:hi.group == ""
 		return
 	endif
 	let pattern = printf(a:hi.format, a:pattern)
-	call s:Highlight.highlight(a:name, a:hi.group, pattern, a:hi.priority)
+	call s:Highlight.add(a:name, a:hi.group, pattern, a:hi.priority)
 endfunction
 
 
@@ -107,6 +128,7 @@ function! s:single_word(pattern, highlight, cursorline)
 	if is_highlight_cursorline
 		call s:highlight("cursor_line", '\%' . line('.') . 'l' . pattern, a:cursorline)
 	endif
+	return 1
 endfunction
 
 
@@ -136,17 +158,20 @@ endfunction
 
 function! s:highlighting(pattern, highlight, cursorline, ...)
 	call brightest#hl_clear()
-	
+
 	let context = s:context()
 	if s:is_ignore(context)
 		return
 	endif
 
 	if get(a:, 1, "") == ""
-		return s:single_word(a:pattern, a:highlight, a:cursorline)
+		if s:single_word(a:pattern, a:highlight, a:cursorline)
+			call s:highlight_on()
+		endif
 	else
 " 		return s:with_current(a:1, a:group, a:pattern)
 	endif
+
 endfunction
 
 
@@ -255,3 +280,5 @@ function! brightest#on_CursorMoved()
 endfunction
 
 
+let &cpo = s:save_cpo
+unlet s:save_cpo

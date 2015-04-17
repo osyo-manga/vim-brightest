@@ -2,15 +2,19 @@ scriptencoding utf-8
 let s:save_cpo = &cpo
 set cpo&vim
 
+
+
 function! s:_vital_loaded(V)
 	let s:V = a:V
 	let s:Search = a:V.import("Coaster.Search")
+	let s:Object = a:V.import("Coaster.Buffer.Object")
 endfunction
 
 
 function! s:_vital_depends()
 	return [
-\		"Coaster.Search"
+\		"Coaster.Search",
+\		"Coaster.Buffer.Object"
 \	]
 endfunction
 
@@ -78,16 +82,50 @@ function! s:yank(wise, first, last)
  	let old_last  = getpos("']")
 	let old_pos = getpos(".")
 	try
-		call setpos("'[", a:first)
-		call setpos("']", a:last)
+		call s:_setpos("'[", a:first)
+		call s:_setpos("']", a:last)
 		execute "normal! `[" . a:wise . "`]y"
 	finally
-		call setpos("'[", old_first)
-		call setpos("']", old_last)
+		call s:_setpos("'[", old_first)
+		call s:_setpos("']", old_last)
 		let &selection = old_selection
 		call winrestview(old_view)
-		call setpos(".", old_pos)
+		call s:_setpos(".", old_pos)
 	endtry
+endfunction
+
+
+function! s:delete(wise, first, last)
+	let old_view = winsaveview()
+	let old_selection = &selection
+	let &selection = 'inclusive'
+ 	let old_first = getpos("'[")
+ 	let old_last  = getpos("']")
+	let old_pos = getpos(".")
+	try
+		call s:_setpos("'[", a:first)
+		call s:_setpos("']", a:last)
+		execute printf('normal! `[%s`]"_d', a:wise)
+	finally
+		call s:_setpos("'[", old_first)
+		call s:_setpos("']", old_last)
+		let &selection = old_selection
+		call winrestview(old_view)
+		call s:_setpos(".", old_pos)
+	endtry
+endfunction
+
+
+function! s:_as_pos(pos)
+	return len(a:list) == 2 ? [0] + a:pos + [0] : a:pos
+endfunction
+
+
+function! s:_setpos(expr, list)
+	if len(a:list) == 2
+		return s:_setpos(a:expr, [0] + a:list + [0])
+	endif
+	return setpos(a:expr, a:list)
 endfunction
 
 
@@ -99,24 +137,36 @@ function! s:paste(wise, first, last, register)
  	let old_last  = getpos("']")
 	let old_pos = getpos(".")
 	try
-		call setpos("'[", a:first)
-		call setpos("']", a:last)
+		call s:_setpos("'[", a:first)
+		call s:_setpos("']", a:last)
 		execute printf('normal! `[%s`]"%sp', a:wise, a:register)
 	finally
-		call setpos("'[", old_first)
-		call setpos("']", old_last)
+		call s:_setpos("'[", old_first)
+		call s:_setpos("']", old_last)
 		let &selection = old_selection
 		call winrestview(old_view)
-		call setpos(".", old_pos)
+		call s:_setpos(".", old_pos)
 	endtry
 endfunction
+
+
+function! s:paste_for_text(wise, first, last, text)
+	let old = @a
+	try
+		let @a = a:text
+		return s:paste(a:wise, a:first, a:last, "a")
+	finally
+		let @a = old
+	endtry
+endfunction
+
 
 
 function! s:get_text_line_from_lnum(first, last)
 	return join(getline(a:first, a:last), "\n")
 endfunction
-"
-"
+
+
 " function! s:get_text_line_from_region(first, last)
 " " 	if type(a:first) == type([])
 " " 		return s:get_text_line_from_region(a:first[1], a:last)
@@ -146,9 +196,7 @@ endfunction
 function! s:get_block_from_region(first, last)
 	let first = a:first
 	let last  = a:last
-	echo join(map(range(a:first[1], a:last[1]), "
-\		s:get_char_from_region([first[0], v:val, first[2], first[3]], [last[0], v:val, last[2], last[3]])
-\	"), "\n")
+	return join(map(range(a:first[1], a:last[1]), "s:get_char_from_region([first[0], v:val, first[2], first[3]], [last[0], v:val, last[2], last[3]])"), "\n")
 endfunction
 
 
@@ -161,16 +209,6 @@ function! s:get_text_from_region(first, last, ...)
 	elseif wise ==# "\<C-v>"
 		return s:get_block_from_region(a:first, a:last)
 	endif
-" 	let old_first = getpos("'[")
-" 	let old_last  = getpos("']")
-" 	try
-" 		call setpos("'[", a:first)
-" 		call setpos("']", a:last)
-" 		return s:get_text_from_latest_yank(wise)
-" 	finally
-" 		call setpos("'[", old_first)
-" 		call setpos("']", old_last)
-" 	endtry
 endfunction
 
 
@@ -245,18 +283,58 @@ function! s:get_region_from_textobj(textobj)
 endfunction
 
 
+function! s:get(bufnr)
+	return s:Object.make(a:bufnr)
+endfunction
+
+
+" function! s:make(expr)
+" 	let buffer = s:get(a:expr)
+" 	if buffer.is_exists()
+" 		return buffer
+" 	endif
+" 	return s:new("", type(a:expr) == type("") ? a:expr : "")
+" endfunction
+
+
+function! s:current()
+	return s:get(bufnr("%"))
+endfunction
+
+
+function! s:new(...)
+	let name = get(a:, 1, "")
+	execute "new" name
+	let buffer = s:current()
+	quit
+	return buffer
+endfunction
+
+
+function! s:open(cmd)
+	let buffer = s:new()
+	call buffer.open(a:cmd)
+	return buffer
+endfunction
+
+
 function! s:execute(expr, cmd)
-	let bufnr = bufnr("%")
-	try
-		noautocmd execute "bufdo if bufnr('%') == " a:expr . ' | ' . a:cmd . ' | endif'
-	finally
-		execute "buffer" bufnr
-	endtry
+	return s:get(a:expr).execute(a:cmd)
+endfunction
+
+
+function! s:setbufline_if_python(expr, lnum, text)
+	if len(getbufline(a:expr, 1, "$")) < a:lnum - 1
+		return
+	endif
+	let list = type(a:text) == type([]) ? a:text : [a:text]
+	python import vim
+	py vim.buffers[int(vim.eval('a:expr'))][int(vim.eval("a:lnum")) - 1 : int(vim.eval("a:lnum")) - 1 + len(vim.eval("list"))] = vim.eval("list")
 endfunction
 
 
 function! s:setbufline(expr, lnum, text)
-	return s:execute(a:expr, "call setline(" . a:lnum . "," . string(a:text) . ")")
+	return s:get(a:expr).setline(a:lnum, a:text)
 endfunction
 
 
