@@ -3,8 +3,21 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
+function! s:_vital_loaded(V)
+	let s:V = a:V
+	let s:Buffer = a:V.import("Vim.Buffer")
+endfunction
+
+
+function! s:_vital_depends()
+	return [
+\		"Vim.Buffer",
+\	]
+endfunction
+
+
 function! s:windo(func, args, obj)
-	if len(tabpagebuflist()) <= 1
+	if len(tabpagebuflist()) <= 1 || s:Buffer.is_cmdwin()
 		return call(a:func, a:args, a:obj)
 	endif
 	let pre_winnr = winnr()
