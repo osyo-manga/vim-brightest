@@ -72,6 +72,10 @@ endfunction
 
 let s:old_enable_window_all = g:brightest#enable_highlight_all_window
 function! brightest#hl_clear()
+	if empty(s:Highlight.hl_list())
+		return
+	endif
+" 	call s:Highlight.as_windo().disable_all()
 	if g:brightest#enable_highlight_all_window
 \	|| s:old_enable_window_all
 		call s:Highlight.as_windo().disable_all()
@@ -261,6 +265,7 @@ let g:brightest#enable_on_CursorHold = get(g:, "brightest#enable_on_CursorHold",
 function! s:is_enable_on_cursorhold()
 	return g:brightest#enable_on_CursorHold && get(b:, "brightest_enable_on_CursorHold", 1)
 endfunction
+
 
 function! brightest#on_CursorHold()
 	if s:is_enable() && s:is_enable_on_cursorhold()
