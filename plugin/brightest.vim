@@ -36,16 +36,8 @@ command! -bar BrightestLock    let b:brightest_enable = 0 | BrightestClear
 command! -bar BrightestToggle  if g:brightest_enable | BrightestDisable | else | BrightestEnable | endif
 
 
-function! s:highlight()
-	if g:brightest_enable && get(b:, "brightest_enable", 1)
-		call brightest#highlighting()
-	endif
-endfunction
-
-
 augroup brightest
 	autocmd!
-" 	autocmd CursorMoved * call s:highlight()
 	autocmd CursorMoved * call brightest#on_CursorMoved()
 	autocmd CursorHold  * call brightest#on_CursorHold()
 	autocmd BufLeave,WinLeave * call brightest#hl_clear()
