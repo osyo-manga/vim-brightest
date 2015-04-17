@@ -39,8 +39,10 @@ command! -bar BrightestToggle  if g:brightest_enable | BrightestDisable | else |
 augroup brightest
 	autocmd!
 	autocmd CursorMoved * call brightest#on_CursorMoved()
+	autocmd WinEnter    * call brightest#on_CursorMoved()
 	autocmd CursorHold  * call brightest#on_CursorHold()
-	autocmd BufLeave,WinLeave * call brightest#hl_clear()
+	autocmd WinLeave    * call brightest#hl_clear()
+" 	autocmd BufLeave,WinLeave * call brightest#hl_clear()
 	autocmd ColorScheme * call s:init_hl()
 
 	autocmd CursorMovedI *
