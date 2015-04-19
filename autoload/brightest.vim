@@ -275,12 +275,22 @@ endfunction
 
 
 let g:brightest#enable_clear_highlight_on_CursorMoved = get(g:, "brightest#enable_clear_highlight_on_CursorMoved", 1)
+
 function! brightest#on_CursorMoved()
+	let mode = mode()
+
 	if s:is_enable_on_cursorhold() && g:brightest#enable_clear_highlight_on_CursorMoved
 		call brightest#hl_clear()
 	endif
 	if s:is_enable() && !s:is_enable_on_cursorhold()
 		call brightest#highlighting()
+	endif
+
+	" Workaround : visual mode to normal mode
+	" https://github.com/osyo-manga/vim-brightest/issues/13
+	if mode =~# "[\<C-v>vV]" && mode != mode()
+\	&& g:brightest#enable_highlight_all_window
+		normal! gv
 	endif
 endfunction
 
