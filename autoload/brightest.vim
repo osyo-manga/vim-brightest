@@ -2,8 +2,8 @@ scriptencoding utf-8
 let s:save_cpo = &cpo
 set cpo&vim
 
-" let s:V = vital#of("vital")
-let s:V = vital#of("brightest")
+let s:V = vital#of("vital")
+" let s:V = vital#of("brightest")
 let s:Prelude = s:V.import("Prelude")
 let s:Buffer = s:V.import("Coaster.Buffer")
 let s:Search = s:V.import("Coaster.Search")
@@ -67,6 +67,11 @@ function! s:highlight_off()
 	else
 		call s:Highlight.disable_all()
 	endif
+endfunction
+
+
+function! Test()
+	call s:Highlight.as_windo().disable_all()
 endfunction
 
 
@@ -267,16 +272,21 @@ function! s:is_enable_on_cursorhold()
 endfunction
 
 
+let s:is_CursorMoved = 1
 function! brightest#on_CursorHold()
-	if s:is_enable() && s:is_enable_on_cursorhold()
+	" Workaround : call the CursorMoved to the next CursorHold
+	" call feedkeys(mode() ==# 'i' ? "\<C-g>\<ESC>" : "g\<ESC>", 'n')
+	if s:is_enable() && s:is_enable_on_cursorhold() && s:is_CursorMoved
 		call brightest#highlighting()
 	endif
+	let s:is_CursorMoved = 0
 endfunction
 
 
 let g:brightest#enable_clear_highlight_on_CursorMoved = get(g:, "brightest#enable_clear_highlight_on_CursorMoved", 1)
 
 function! brightest#on_CursorMoved()
+	let s:is_CursorMoved = 1
 	let mode = mode()
 
 	if s:is_enable_on_cursorhold() && g:brightest#enable_clear_highlight_on_CursorMoved
