@@ -2,8 +2,8 @@ scriptencoding utf-8
 let s:save_cpo = &cpo
 set cpo&vim
 
-let s:V = vital#of("vital")
-" let s:V = vital#of("brightest")
+" let s:V = vital#of("vital")
+let s:V = vital#of("brightest")
 let s:Prelude = s:V.import("Prelude")
 let s:Buffer = s:V.import("Coaster.Buffer")
 let s:Search = s:V.import("Coaster.Search")
