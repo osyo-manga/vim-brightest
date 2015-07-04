@@ -16,18 +16,19 @@ function! s:_vital_depends()
 endfunction
 
 
-function! s:windo(func, args, obj)
+function! s:windo(func, args, ...)
+	let dict = get(a:, 1, {})
 	if len(tabpagebuflist()) <= 1 || s:Buffer.is_cmdwin()
-		return call(a:func, a:args, a:obj)
+		return call(a:func, a:args, dict)
 	endif
 	let pre_winnr = winnr()
 
-	noautocmd windo call call(a:func, a:args, a:obj)
+	noautocmd windo call call(a:func, a:args, dict)
 	
 	if pre_winnr == winnr()
 		return
 	endif
-	execute pre_winnr . "wincmd w"
+	noautocmd execute pre_winnr . "wincmd w"
 endfunction
 
 
