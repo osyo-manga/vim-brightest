@@ -33,8 +33,8 @@ let g:brightest#enable_filetypes = {
 
 " filetype=vim のみを有効にする
 let g:brightest#enable_filetypes = {
-\	"_"   : 0
-\	"vim" : 1
+\	"_"   : 0,
+\	"vim" : 1,
 \}
 ```
 
