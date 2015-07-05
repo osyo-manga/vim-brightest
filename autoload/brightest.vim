@@ -70,11 +70,6 @@ function! s:highlight_off()
 endfunction
 
 
-function! Test()
-	call s:Highlight.as_windo().disable_all()
-endfunction
-
-
 let s:old_enable_window_all = g:brightest#enable_highlight_all_window
 function! brightest#hl_clear()
 	if empty(s:Highlight.hl_list())
