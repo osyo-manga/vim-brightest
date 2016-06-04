@@ -4,7 +4,7 @@ set cpo&vim
 
 " let s:V = vital#of("vital")
 let s:V = vital#of("brightest")
-let s:Prelude = s:V.import("Prelude")
+let s:Prelude = s:V.import("Data.String")
 let s:Buffer = s:V.import("Coaster.Buffer")
 let s:Search = s:V.import("Coaster.Search")
 let s:Highlight = s:V.import("Coaster.Highlight")
