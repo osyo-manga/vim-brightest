@@ -1,5 +1,5 @@
 brightest
-e3250cf
+49faf10e4d39eaa0dee1643acab5fc846bede610
 
 Coaster
 Prelude
@@ -7,3 +7,4 @@ Coaster.Buffer
 Coaster.Highlight
 Coaster.Search
 Coaster.Window
+Data.String
