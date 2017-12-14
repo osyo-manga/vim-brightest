@@ -20,12 +20,19 @@ let g:brightest#ignore_word_pattern = get(g:, "brightest#ignore_word_pattern", "
 
 
 function! s:context()
-	return {
+	let context = {
 \		"filetype" : &filetype,
 \		"line" : line("."),
 \		"col"  : col("."),
-\		"syntax_name" : synIDattr(synIDtrans(synID(line("."), col("."), 1)), "name")
+\		"syntax_name" : "",
 \	}
+
+	" パフォーマンスを上げるために g:brightest#ignore_syntax_list が設定されている場合のみ
+	" シンタックス名を設定する
+	if !empty(g:brightest#ignore_syntax_list)
+		let context.syntax_name = synIDattr(synIDtrans(synID(line("."), col("."), 1)), "name")
+	endif
+	return context
 endfunction
 
 
@@ -280,7 +287,8 @@ endfunction
 
 let g:brightest#enable_clear_highlight_on_CursorMoved = get(g:, "brightest#enable_clear_highlight_on_CursorMoved", 1)
 
-function! brightest#on_CursorMoved()
+
+function! s:on_CursorMoved()
 	let s:is_CursorMoved = 1
 	let mode = mode()
 
@@ -298,6 +306,16 @@ function! brightest#on_CursorMoved()
 		normal! gv
 	endif
 endfunction
+
+function! brightest#on_CursorMoved()
+	try
+		call s:on_CursorMoved()
+	catch /.*/
+		echohl Error | echo "Error: Brightest CursorMoved " . v:exception | echohl NONE
+	endtry
+endfunction
+
+
 
 
 let &cpo = s:save_cpo

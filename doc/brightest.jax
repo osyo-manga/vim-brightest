@@ -127,7 +127,9 @@ b:brightest_highlight_in_cursorline	*b:brightest_highlight_in_cursorline*
 g:brightest#ignore_syntax_list		*g:brightest#ignore_syntax_list*
 	ハイライトを行わないシンタックス名のリストです。
 	ここで設定したシンタックス上にカーソルがある場合はハイライトしません。
-	NOTE:|g:brightest#pattern|を設定していない場合、カーソル上以外の単語がハイライトされるのでこの機能が正しく動作しない可能性があります。
+	NOTE: |g:brightest#pattern|を設定していない場合、カーソル上以外の単語がハイライトされるのでこの機能が正しく動作しない可能性があります。
+	NOTE: このオプションが設定されている場合パフォーマンスが遅くなる場合が
+	あります。
 Default: >
 	let g:brightest#ignore_syntax_list = []
 <
